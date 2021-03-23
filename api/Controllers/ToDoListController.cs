@@ -22,13 +22,6 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("WhoIsKing")]
-        public string GetTheKing()
-        {
-            return "Jesus Christ is King!";
-        }
-
-        [HttpGet]
         [Route("GetUsers")]
         public async Task<List<User>> GetUsers()
         {
@@ -129,7 +122,8 @@ namespace api.Controllers
         [Route("DeleteTask")]
         public async System.Threading.Tasks.Task DleteTask([FromBody] api.Models.Task task)
         {
-            Context.Remove(task);
+            var taskforDel= Context.Task.Where(p=> p.Description==task.Description).ToList().Last();
+            Context.Remove(taskforDel);
             Context.SaveChangesAsync();
         }
 

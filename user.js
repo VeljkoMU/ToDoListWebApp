@@ -14,14 +14,6 @@ export class User{
         tsList.draw(this.container);
     }
 
-    saveToDB(link){
-
-    }
-
-    loadFromDB(link){
-
-    }
-
     draw(parentContainer){
         let titleDiv=document.createElement("div");
         titleDiv.classList.add("user-title");

@@ -10,9 +10,6 @@ export class Task{
         this.container.classList.add("task");
     }
 
-    saveToDb(link){
-
-    }
 
     draw(parentContainer){
         let descDiv=document.createElement("div");
@@ -25,8 +22,28 @@ export class Task{
         doneButton.classList.add("done-task-button");
         doneButton.innerHTML="Mark As Done";
 
+        let buttonDelete=document.createElement("button");
+        buttonDelete.classList.add("button");
+        buttonDelete.innerHTML="X";
+
+        buttonDelete.onclick = (ev) =>{
+            fetch("https://localhost:5001/ToDoList/DeleteTask", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                description: this.descrition,
+                isDone: true
+            })
+            });
+
+            parentContainer.removeChild(this.container);
+    
+        }
+
         if(this.isDone)
-        this.container.style.backgroundColor = "green";
+            this.container.style.backgroundColor = "green";
 
         doneButton.onclick = (ev) =>{
             this.isDone=true;
@@ -43,11 +60,15 @@ export class Task{
                 })
             });
             this.container.style.backgroundColor = "green";
+            this.container.removeChild(doneButton);
         }
 
         this.container.appendChild(descDiv);
         this.container.appendChild(dateDiv);
+        if(!this.isDone){
         this.container.appendChild(doneButton);
+        }
+        this.container.appendChild(buttonDelete);
 
         parentContainer.appendChild(this.container);
     }

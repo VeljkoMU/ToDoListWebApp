@@ -25,11 +25,4 @@ export class TaskList{
         parentContainer.appendChild(this.container);
     }
 
-    saveToDB(link){
-
-    }
-
-    loadFromDB(link){
-
-    }
 }
